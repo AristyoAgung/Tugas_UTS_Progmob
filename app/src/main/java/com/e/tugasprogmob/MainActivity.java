@@ -3,10 +3,12 @@ package com.e.tugasprogmob;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
 import android.os.Bundle;
@@ -32,15 +34,37 @@ public class MainActivity extends AppCompatActivity {
 
         InitializeUI();
 
+        SharedPreferences prefs = getSharedPreferences("prefs_file",MODE_PRIVATE);
+
+        String statusLogin = prefs.getString("isLogin","");
+        TextView ddd = findViewById(R.id.textView6);
+        ddd.setText(statusLogin);
+
+
+        if (statusLogin.equals("admin")){
+            Intent intent = new Intent(MainActivity.this, HCAdminActivity.class);
+            startActivity(intent);
+        }else if(statusLogin.equals("dosen")){
+            Intent intent = new Intent(MainActivity.this, HCDosenActivity.class);
+            startActivity(intent);
+        }
+
         View.OnClickListener a = new View.OnClickListener()
         {
+            SharedPreferences prefs = MainActivity.this.getSharedPreferences("prefs_file",MODE_PRIVATE);
+            SharedPreferences.Editor edit = prefs.edit();
             EditText pass = (EditText) findViewById(R.id.pass);
+            EditText email = (EditText) findViewById(R.id.etEmail);
             @Override
             public void onClick(View view) {
-                if(pass.getText().toString().equals("admin")) {
+                if(pass.getText().toString().equals("admin")&&email.getText().toString().endsWith("@staff.ukdw.ac.id")) {
+                    edit.putString("isLogin","admin");
+                    edit.commit();
                     Intent intent = new Intent(MainActivity.this, HCAdminActivity.class);
                     startActivity(intent);
-                }else if(pass.getText().toString().equals("dosen")){
+                }else if(pass.getText().toString().equals("dosen")&&email.getText().toString().endsWith("@si.ukdw.ac.id")){
+                    edit.putString("isLogin","dosen");
+                    edit.commit();
                     Intent intent = new Intent(MainActivity.this, HCDosenActivity.class);
                     startActivity(intent);
                 }else {
@@ -53,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         dd.setOnClickListener(a);
     }
 
-    private void InitializeUI() {
+    public void InitializeUI() {
         email = (EditText) findViewById(R.id.etEmail);
 
         email.addTextChangedListener(new TextWatcher() {

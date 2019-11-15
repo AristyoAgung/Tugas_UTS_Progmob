@@ -9,11 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Admin.Insert.InsertKrsActivity" android:label="SI KRS - Hai [Nama Admin]"></activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
+        <activity
+            android:name=".Admin.Insert.InsertKrsActivity"
+            android:label="SI KRS - Hai [Nama Admin]" />
         <activity
             android:name=".Admin.Insert.InsertMatkulActivity"
-            android:label="SI KRS - Hai [Nama Admin]">
-        </activity>
+            android:label="SI KRS - Hai [Nama Admin]"></activity>
         <activity
             android:name=".Admin.Insert.InsertMhsActivity"
             android:label="SI KRS - Hai [Nama Admin]" />
@@ -40,24 +44,21 @@
             android:label="SI KRS - Hai [Nama Dosen]" />
         <activity
             android:name=".Admin.HCAdminActivity"
-            android:label="SI KRS - Hai [Nama Admin]">
-        </activity>
+            android:label="SI KRS - Hai [Nama Admin]"></activity>
         <activity
             android:name=".Dosen.KrsDsnActivity"
             android:label="SI KRS - Hai [Nama Dosen]" />
         <activity
             android:name=".Dosen.HCDosenActivity"
             android:label="SI KRS - Hai [Nama Dosen]" />
-        <activity android:name=".SplashActivity" >
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" >
-
-        </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

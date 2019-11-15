@@ -3,11 +3,13 @@ package com.e.tugasprogmob.Admin;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.e.tugasprogmob.R;
+import com.e.tugasprogmob.SplashActivity;
 
 public class HCAdminActivity extends AppCompatActivity {
 
@@ -59,5 +61,20 @@ public class HCAdminActivity extends AppCompatActivity {
         };
         Button kk = (Button)findViewById(R.id.button4);
         kk.setOnClickListener(d);
+
+        View.OnClickListener e = new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences prefs = getSharedPreferences("prefs_file",MODE_PRIVATE);
+                SharedPreferences.Editor edit = prefs.edit();
+                edit.putString("isLogin",null);
+                edit.commit();
+                Intent intent = new Intent(HCAdminActivity.this, SplashActivity.class);
+                startActivity(intent);
+            }
+        };
+        Button lo = (Button)findViewById(R.id.button6);
+        lo.setOnClickListener(e);
     }
 }
