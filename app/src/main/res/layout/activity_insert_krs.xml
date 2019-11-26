@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TambahActivity">
+    tools:context=".Admin.Insert.InsertKrsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,9 +16,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:text="Kode"
-            app:layout_constraintBottom_toBottomOf="@+id/editText"
+            app:layout_constraintBottom_toBottomOf="@+id/txtNama"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/editText" />
+            app:layout_constraintTop_toTopOf="@+id/txtNama" />
 
         <TextView
             android:id="@+id/textView4"
@@ -26,13 +26,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:text="MATKUL"
-            app:layout_constraintBottom_toBottomOf="@+id/editText3"
+            app:layout_constraintBottom_toBottomOf="@+id/txtNidn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/editText3"
+            app:layout_constraintTop_toTopOf="@+id/txtNidn"
             app:layout_constraintVertical_bias="0.384" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/txtNama"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -45,15 +45,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/txtNidn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/editText"
-            app:layout_constraintStart_toStartOf="@+id/editText"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintEnd_toEndOf="@+id/txtNama"
+            app:layout_constraintStart_toStartOf="@+id/txtNama"
+            app:layout_constraintTop_toBottomOf="@+id/txtNama" />
 
         <TextView
             android:id="@+id/textView8"
@@ -82,9 +82,9 @@
             android:layout_marginTop="16dp"
             android:dropDownWidth="wrap_content"
             android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="@+id/editText3"
-            app:layout_constraintStart_toStartOf="@+id/editText3"
-            app:layout_constraintTop_toBottomOf="@+id/editText3" />
+            app:layout_constraintEnd_toEndOf="@+id/txtNidn"
+            app:layout_constraintStart_toStartOf="@+id/txtNidn"
+            app:layout_constraintTop_toBottomOf="@+id/txtNidn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

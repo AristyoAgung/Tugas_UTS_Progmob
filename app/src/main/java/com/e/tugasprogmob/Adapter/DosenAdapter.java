@@ -3,6 +3,7 @@ package com.e.tugasprogmob.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,7 +32,8 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtNIDN.setText(dataList.get(position).getNIDN());
+        holder.txtNIDN.setText(dataList.get(position).getNidn());
+        holder.txtNama.setText(dataList.get(position).getNama());
         holder.txtGelar.setText(dataList.get(position).getGelar());
         holder.txtEmail.setText(dataList.get(position).getEmail());
         holder.txtAlamat.setText(dataList.get(position).getAlamat());
@@ -43,10 +45,11 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView txtNIDN, txtGelar, txtEmail, txtAlamat;
+        private TextView txtNIDN,txtNama, txtGelar, txtEmail, txtAlamat;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtNIDN = itemView.findViewById(R.id.txtNIDN);
+            txtNama = itemView.findViewById(R.id.txtNama);
             txtGelar = itemView.findViewById(R.id.txtGelar);
             txtEmail = itemView.findViewById(R.id.txtEmail);
             txtAlamat = itemView.findViewById(R.id.txtAlamat);

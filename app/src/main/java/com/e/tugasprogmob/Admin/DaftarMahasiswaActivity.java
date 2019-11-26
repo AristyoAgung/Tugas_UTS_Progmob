@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.e.tugasprogmob.Adapter.DosenAdapter;
 import com.e.tugasprogmob.Admin.Insert.InsertMhsActivity;
 import com.e.tugasprogmob.Model.Dosen;
+import com.e.tugasprogmob.Model.Mahasiswa;
 import com.e.tugasprogmob.R;
 
 import java.util.ArrayList;
@@ -38,8 +39,8 @@ public class DaftarMahasiswaActivity extends AppCompatActivity {
 
     private void addData() {
         mahasiswaArrayList = new ArrayList<>();
-        mahasiswaArrayList.add(new Dosen("NIDN - NAMA MHS","email","alamat",""));
-        mahasiswaArrayList.add(new Dosen("NIDN - NAMA MHS","email","alamat",""));
+        mahasiswaArrayList.add(new Dosen("NIDN","NAMA MHS","email","alamat"));
+        mahasiswaArrayList.add(new Dosen("NIDN","NAMA MHS","email","alamat"));
     }
 
     @Override
