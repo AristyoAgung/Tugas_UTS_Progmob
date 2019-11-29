@@ -55,9 +55,9 @@ public class KrsAdminActivity extends AppCompatActivity {
             case R.id.item1:
                 startActivity(intent);
                 return true;
-            case R.id.item2:
+            /*case R.id.item2:
                 startActivity(intent);
-                return true;
+                return true;*/
             default:
                 return super.onOptionsItemSelected(item);
         }

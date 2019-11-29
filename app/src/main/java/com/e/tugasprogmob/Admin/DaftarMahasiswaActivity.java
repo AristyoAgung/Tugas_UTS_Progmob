@@ -56,9 +56,9 @@ public class DaftarMahasiswaActivity extends AppCompatActivity {
             case R.id.item1:
                 startActivity(intent);
                 return true;
-            case R.id.item2:
+            /*ase R.id.item2:
                 startActivity(intent);
-                return true;
+                return true;*/
             default:
                 return super.onOptionsItemSelected(item);
         }

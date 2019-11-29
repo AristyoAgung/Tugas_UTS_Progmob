@@ -34,6 +34,7 @@ public class DaftarDosenActivity extends AppCompatActivity {
     public static DaftarDosenActivity ma;
     public boolean update;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,12 +107,12 @@ public class DaftarDosenActivity extends AppCompatActivity {
                 //update = false;
                 startActivity(intent);
                 return true;
-            case R.id.item2:
+            /*case R.id.item2:
                 intent.putExtra("update",true);
                 intent.putExtra("nama","sapa");
                 //update = true;
                 startActivity(intent);
-                return true;
+                return true;*/
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -119,18 +120,18 @@ public class DaftarDosenActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         Dosen dosen = mahasiswaArrayList.get(item.getGroupId());
-        if (item.getTitle() == "Ubah data dosen "){
+        if (item.getTitle() == "Update"){
             Intent intent = new Intent(DaftarDosenActivity.this,InsertDosenActivity.class);
-            intent.putExtra("id_dosen",dosen.getId());
-            intent.putExtra("nama_dosen",dosen.getNama());
+            intent.putExtra("id",dosen.getId());
+            intent.putExtra("nama",dosen.getNama());
             intent.putExtra("nidn",dosen.getNidn());
             intent.putExtra("alamat",dosen.getAlamat());
             intent.putExtra("email",dosen.getEmail());
             intent.putExtra("gelar",dosen.getGelar());
             intent.putExtra("foto",dosen.getFoto());
-            intent.putExtra("is_update",true);
+            intent.putExtra("update",true);
             startActivity(intent);
-        }else if (item.getTitle() == "Delete data dosen ") {
+        }else if (item.getTitle() == "Delete") {
             DataDosenService service = RetrofitClient.getRetrofitInstance().create(DataDosenService.class);
             Call<Dosen> call = service.delDosen(
                     "72170168",dosen.getId());// memanggil data yang sudah ada

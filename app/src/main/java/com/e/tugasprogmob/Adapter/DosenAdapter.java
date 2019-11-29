@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> {
 
     private ArrayList<Dosen> dataList;
-    private Context context;
+    //private Context context;
 
     public DosenAdapter(ArrayList<Dosen> dataList){
         this.dataList=dataList;
@@ -30,7 +30,7 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.card_view_dosen,parent,false);
-        context = parent.getContext();
+        //context = parent.getContext();
         return new ViewHolder(view);
     }
 
@@ -59,12 +59,13 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> 
             txtGelar = itemView.findViewById(R.id.txtGelar);
             txtEmail = itemView.findViewById(R.id.txtEmail);
             txtAlamat = itemView.findViewById(R.id.txtAlamat);
+            itemView.setOnCreateContextMenuListener(this);
 
         }
         @Override
         public void onCreateContextMenu(ContextMenu Menu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
             Menu.setHeaderTitle("Update atau Delete?");
-            Menu.add(this.getAdapterPosition(),view.getId(),0,"Update ");
+            Menu.add(this.getAdapterPosition(),view.getId(),0,"Update");
             Menu.add(this.getAdapterPosition(),view.getId(),0,"Delete");
         }
 

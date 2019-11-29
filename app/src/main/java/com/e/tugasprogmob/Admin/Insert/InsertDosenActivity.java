@@ -33,6 +33,7 @@ public class InsertDosenActivity extends AppCompatActivity {
     DataDosenService dataDosenService;
     DaftarDosenActivity a;
     boolean update = false;
+    int id;
 
 
     @Override
@@ -72,7 +73,7 @@ public class InsertDosenActivity extends AppCompatActivity {
     private void tambah_dosen(){
         Call<Dosen> call;
         if(update) {
-            call = dataDosenService.updateDosen("72170168", 164, edtNama.getText().toString(),
+            call = dataDosenService.updateDosen("72170168", id, edtNama.getText().toString(),
                     edtNidn.getText().toString(), edtAlamat.getText().toString(), edtEmail.getText().toString(),
                     edtGelar.getText().toString(), edtFoto.getText().toString());
         }
@@ -104,6 +105,12 @@ public class InsertDosenActivity extends AppCompatActivity {
         }
         update = extras.getBoolean("update");
         edtNama.setText(extras.getString("nama"));
+        id = extras.getInt("id");
+        edtNidn.setText(extras.getString("nidn"));
+        edtAlamat.setText(extras.getString("alamat"));
+        edtEmail.setText(extras.getString("email"));
+        edtGelar.setText(extras.getString("gelar"));
+        edtFoto.setText(extras.getString("foto"));
 
     }
 }
