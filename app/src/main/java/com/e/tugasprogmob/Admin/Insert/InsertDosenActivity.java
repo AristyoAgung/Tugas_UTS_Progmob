@@ -32,18 +32,23 @@ public class InsertDosenActivity extends AppCompatActivity {
     Button btnSimpan, btnBack;
     DataDosenService dataDosenService;
     DaftarDosenActivity a;
+    boolean update = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_dosen);
+
         edtNama = findViewById(R.id.txtNama);
         edtNidn = findViewById(R.id.txtNidn);
         edtAlamat = findViewById(R.id.txtAlamat);
         edtEmail = findViewById(R.id.txtEmail);
         edtGelar = findViewById(R.id.txtGelar);
         edtFoto = findViewById(R.id.txtFoto);
+
+        cek_update();
+
         ProgressDialog progressDialog;
         dataDosenService = RetrofitClient.getRetrofitInstance()
                 .create(DataDosenService.class);
@@ -66,14 +71,16 @@ public class InsertDosenActivity extends AppCompatActivity {
     }
     private void tambah_dosen(){
         Call<Dosen> call;
-        if(a.update=true)
-        call = dataDosenService.updateDosen("72170168",164,edtNama.getText().toString(),
-                edtNidn.getText().toString(), edtAlamat.getText().toString(), edtEmail.getText().toString(),
-                edtGelar.getText().toString(), edtFoto.getText().toString());
-        else
-            call = dataDosenService.postDosen("72170168",edtNama.getText().toString(),
+        if(update) {
+            call = dataDosenService.updateDosen("72170168", 164, edtNama.getText().toString(),
                     edtNidn.getText().toString(), edtAlamat.getText().toString(), edtEmail.getText().toString(),
                     edtGelar.getText().toString(), edtFoto.getText().toString());
+        }
+        else {
+            call = dataDosenService.postDosen("72170168", edtNama.getText().toString(),
+                    edtNidn.getText().toString(), edtAlamat.getText().toString(), edtEmail.getText().toString(),
+                    edtGelar.getText().toString(), edtFoto.getText().toString());
+        }
         call.enqueue(new Callback<Dosen>() {
             @Override
             public void onResponse(Call<Dosen> call, Response<Dosen> response) {
@@ -88,5 +95,15 @@ public class InsertDosenActivity extends AppCompatActivity {
                 //System.out.println(t.get);
             }
         });
+    }
+    void cek_update()
+    {
+        Bundle extras = getIntent().getExtras();
+        if (extras == null){
+            return;
+        }
+        update = extras.getBoolean("update");
+        edtNama.setText(extras.getString("nama"));
+
     }
 }

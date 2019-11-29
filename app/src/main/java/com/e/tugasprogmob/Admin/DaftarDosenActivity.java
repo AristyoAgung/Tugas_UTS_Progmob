@@ -1,9 +1,11 @@
 package com.e.tugasprogmob.Admin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -41,40 +43,47 @@ public class DaftarDosenActivity extends AppCompatActivity {
                 .create(DataDosenService.class);
         ma=this;
         getAllDataDosen();
+        recyclerView = findViewById(R.id.rvdd);
 
-        //addData();
+        Call<ArrayList<Dosen>> call = dataDosenService.getDosenAll("72170168");// memanggil data yang sudah ada
+        call.enqueue(new Callback<ArrayList<Dosen>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Dosen>> call, Response<ArrayList<Dosen>> response) {
+                mahasiswaArrayList = response.body();
+                mahasiswaAdapter = new DosenAdapter(response.body());
+
+                //for(Dosen dosen:response.body())
+                //{
+                    //mahasiswaArrayList.add(new Dosen(dosen.getNidn(),dosen.getNama(),dosen.getGelar(),dosen.getEmail(),dosen.getAlamat()));
+                   // mahasiswaArrayList = response.body();
+                    //mahasiswaAdapter = new DosenAdapter(dosen);
+                    /*System.out.println("Nama :"+dosen.getNama());
+                    System.out.println("NIDN :"+dosen.getNidn());
+                    System.out.println(mahasiswaArrayList);*/
+               // }
+
+
+
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(DaftarDosenActivity.this);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(mahasiswaAdapter);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Dosen>> call, Throwable t) {
+                Toast.makeText(DaftarDosenActivity.this,"Something wrong....",Toast.LENGTH_LONG).show();
+                //System.out.println(t.get);
+            }
+        });
+        registerForContextMenu(recyclerView);
 
     }
 
     public void getAllDataDosen()
     {
-        Call<List<Dosen>> call = dataDosenService.getDosenAll("72170168");
-        call.enqueue(new Callback<List<Dosen>>() {
-            @Override
-            public void onResponse(Call<List<Dosen>> call, Response<List<Dosen>> response) {
 
-                for(Dosen dosen:response.body())
-                {
-                    //mahasiswaArrayList.add(new Dosen(dosen.getNidn(),dosen.getNama(),dosen.getGelar(),dosen.getEmail(),dosen.getAlamat()));
-                    mahasiswaArrayList.add(dosen);
-                    /*System.out.println("Nama :"+dosen.getNama());
-                    System.out.println("NIDN :"+dosen.getNidn());
-                    System.out.println(mahasiswaArrayList);*/
-                }
-                recyclerView = findViewById(R.id.rvdd);
-                mahasiswaAdapter = new DosenAdapter(mahasiswaArrayList);
-
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(DaftarDosenActivity.this);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(mahasiswaAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<List<Dosen>> call, Throwable t) {
-                Toast.makeText(DaftarDosenActivity.this,"Something wrong....",Toast.LENGTH_LONG).show();
-                //System.out.println(t.get);
-            }
-        });
     }
 
     private void addData() {
@@ -94,15 +103,55 @@ public class DaftarDosenActivity extends AppCompatActivity {
         Intent intent = new Intent(DaftarDosenActivity.this, InsertDosenActivity.class);
         switch (item.getItemId()){
             case R.id.item1:
-                update = false;
+                //update = false;
                 startActivity(intent);
                 return true;
             case R.id.item2:
-                update = true;
+                intent.putExtra("update",true);
+                intent.putExtra("nama","sapa");
+                //update = true;
                 startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        Dosen dosen = mahasiswaArrayList.get(item.getGroupId());
+        if (item.getTitle() == "Ubah data dosen "){
+            Intent intent = new Intent(DaftarDosenActivity.this,InsertDosenActivity.class);
+            intent.putExtra("id_dosen",dosen.getId());
+            intent.putExtra("nama_dosen",dosen.getNama());
+            intent.putExtra("nidn",dosen.getNidn());
+            intent.putExtra("alamat",dosen.getAlamat());
+            intent.putExtra("email",dosen.getEmail());
+            intent.putExtra("gelar",dosen.getGelar());
+            intent.putExtra("foto",dosen.getFoto());
+            intent.putExtra("is_update",true);
+            startActivity(intent);
+        }else if (item.getTitle() == "Delete data dosen ") {
+            DataDosenService service = RetrofitClient.getRetrofitInstance().create(DataDosenService.class);
+            Call<Dosen> call = service.delDosen(
+                    "72170168",dosen.getId());// memanggil data yang sudah ada
+            call.enqueue(new Callback<Dosen>() {
+                @Override
+                public void onResponse(Call<Dosen> call, Response<Dosen> response) {
+                    //Toast.makeText(DaftarDosenActivity.this, "Behasil Kehapus !!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(DaftarDosenActivity.this, DaftarDosenActivity.class);
+                    startActivity(intent);
+
+                }
+
+                @Override
+                public void onFailure(Call<Dosen> call, Throwable t) {
+                    //progressDialog.dismiss();
+                    Toast.makeText(DaftarDosenActivity.this, "Failed...", Toast.LENGTH_LONG).show();
+                }
+
+            });
+        }
+
+        return super.onContextItemSelected(item);
     }
 }

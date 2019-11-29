@@ -1,5 +1,7 @@
 package com.e.tugasprogmob.Adapter;
 
+import android.content.Context;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> {
 
     private ArrayList<Dosen> dataList;
+    private Context context;
 
     public DosenAdapter(ArrayList<Dosen> dataList){
         this.dataList=dataList;
@@ -27,6 +30,7 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.card_view_dosen,parent,false);
+        context = parent.getContext();
         return new ViewHolder(view);
     }
 
@@ -37,6 +41,7 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> 
         holder.txtGelar.setText(dataList.get(position).getGelar());
         holder.txtEmail.setText(dataList.get(position).getEmail());
         holder.txtAlamat.setText(dataList.get(position).getAlamat());
+
     }
 
     @Override
@@ -44,7 +49,8 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> 
         return (dataList != null) ? dataList.size() : 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder
+    implements View.OnCreateContextMenuListener{
         private TextView txtNIDN,txtNama, txtGelar, txtEmail, txtAlamat;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -55,5 +61,13 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> 
             txtAlamat = itemView.findViewById(R.id.txtAlamat);
 
         }
+        @Override
+        public void onCreateContextMenu(ContextMenu Menu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            Menu.setHeaderTitle("Update atau Delete?");
+            Menu.add(this.getAdapterPosition(),view.getId(),0,"Update ");
+            Menu.add(this.getAdapterPosition(),view.getId(),0,"Delete");
+        }
+
     }
+
 }
