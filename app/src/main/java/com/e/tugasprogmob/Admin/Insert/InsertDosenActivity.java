@@ -31,6 +31,8 @@ public class InsertDosenActivity extends AppCompatActivity {
     EditText edtNama, edtNidn, edtAlamat, edtEmail, edtGelar, edtFoto;
     Button btnSimpan, btnBack;
     DataDosenService dataDosenService;
+    DaftarDosenActivity a;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +65,15 @@ public class InsertDosenActivity extends AppCompatActivity {
         });
     }
     private void tambah_dosen(){
-        Call<Dosen> call = dataDosenService.postDosen("72170168",edtNama.getText().toString(),
+        Call<Dosen> call;
+        if(a.update=true)
+        call = dataDosenService.updateDosen("72170168",164,edtNama.getText().toString(),
                 edtNidn.getText().toString(), edtAlamat.getText().toString(), edtEmail.getText().toString(),
                 edtGelar.getText().toString(), edtFoto.getText().toString());
+        else
+            call = dataDosenService.postDosen("72170168",edtNama.getText().toString(),
+                    edtNidn.getText().toString(), edtAlamat.getText().toString(), edtEmail.getText().toString(),
+                    edtGelar.getText().toString(), edtFoto.getText().toString());
         call.enqueue(new Callback<Dosen>() {
             @Override
             public void onResponse(Call<Dosen> call, Response<Dosen> response) {

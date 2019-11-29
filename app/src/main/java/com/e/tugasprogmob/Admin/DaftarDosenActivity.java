@@ -30,6 +30,7 @@ public class DaftarDosenActivity extends AppCompatActivity {
     private ArrayList<Dosen> mahasiswaArrayList;
     DataDosenService dataDosenService;
     public static DaftarDosenActivity ma;
+    public boolean update;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +94,11 @@ public class DaftarDosenActivity extends AppCompatActivity {
         Intent intent = new Intent(DaftarDosenActivity.this, InsertDosenActivity.class);
         switch (item.getItemId()){
             case R.id.item1:
+                update = false;
                 startActivity(intent);
                 return true;
             case R.id.item2:
+                update = true;
                 startActivity(intent);
                 return true;
             default:

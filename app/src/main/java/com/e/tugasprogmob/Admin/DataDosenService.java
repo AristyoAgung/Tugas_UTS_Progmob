@@ -24,4 +24,19 @@ public interface DataDosenService {
                                 @Field("email") String email,
                                 @Field("gelar") String gelar,
                                 @Field("foto") String foto);
+    @FormUrlEncoded
+    @POST("api/progmob/dosen/update")
+    Call<Dosen> updateDosen(
+            @Field("nim_progmob") String nimProgmob,
+            @Field("id") int id,
+            @Field("nama") String nama,
+            @Field("nidn") String nidn,
+            @Field("alamat") String alamat,
+            @Field("email") String email,
+            @Field("gelar") String gelar,
+            @Field("foto") String foto);
+    @FormUrlEncoded
+    @POST("api/progmob/dosen/delete")
+    Call<Dosen> delDosen(@Field("nim_progmob") String nimProgmob,
+                         @Field("id") String id);
 }
