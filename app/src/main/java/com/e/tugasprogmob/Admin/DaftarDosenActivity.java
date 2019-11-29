@@ -47,7 +47,7 @@ public class DaftarDosenActivity extends AppCompatActivity {
 
     public void getAllDataDosen()
     {
-        Call<List<Dosen>> call = dataDosenService.getDosenAll("1");
+        Call<List<Dosen>> call = dataDosenService.getDosenAll("72170168");
         call.enqueue(new Callback<List<Dosen>>() {
             @Override
             public void onResponse(Call<List<Dosen>> call, Response<List<Dosen>> response) {

@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -39,28 +42,15 @@ public class InsertDosenActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.txtEmail);
         edtGelar = findViewById(R.id.txtGelar);
         edtFoto = findViewById(R.id.txtFoto);
+        ProgressDialog progressDialog;
         dataDosenService = RetrofitClient.getRetrofitInstance()
                 .create(DataDosenService.class);
         btnSimpan = findViewById(R.id.btnSimpan);
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Call<Dosen> call = dataDosenService.postDosen("1","2",edtNama.getText().toString(),
-                        edtNidn.getText().toString(), edtAlamat.getText().toString(), edtEmail.getText().toString(),
-                        edtGelar.getText().toString(), edtFoto.getText().toString());
-                call.enqueue(new Callback<Dosen>() {
-                    @Override
-                    public void onResponse(Call<Dosen> call, Response<Dosen> response) {
-                        DaftarDosenActivity.ma.getAllDataDosen();
-                        finish();
-                    }
 
-                    @Override
-                    public void onFailure(Call<Dosen> call, Throwable t) {
-                        Toast.makeText(InsertDosenActivity.this,"Something wrong....",Toast.LENGTH_LONG).show();
-                        //System.out.println(t.get);
-                    }
-                });
+                tambah_dosen();
             }
         });
         btnBack = findViewById(R.id.btnBack);
@@ -69,6 +59,25 @@ public class InsertDosenActivity extends AppCompatActivity {
             public void onClick(View view) {
                 DaftarDosenActivity.ma.getAllDataDosen();
                 finish();
+            }
+        });
+    }
+    private void tambah_dosen(){
+        Call<Dosen> call = dataDosenService.postDosen("72170168",edtNama.getText().toString(),
+                edtNidn.getText().toString(), edtAlamat.getText().toString(), edtEmail.getText().toString(),
+                edtGelar.getText().toString(), edtFoto.getText().toString());
+        call.enqueue(new Callback<Dosen>() {
+            @Override
+            public void onResponse(Call<Dosen> call, Response<Dosen> response) {
+                Intent intent = new Intent(InsertDosenActivity.this,DaftarDosenActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<Dosen> call, Throwable t) {
+                Toast.makeText(InsertDosenActivity.this,"Something wrong....",Toast.LENGTH_LONG).show();
+                //System.out.println(t.get);
             }
         });
     }
