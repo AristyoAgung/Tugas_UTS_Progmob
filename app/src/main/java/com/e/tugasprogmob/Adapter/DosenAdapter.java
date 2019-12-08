@@ -9,17 +9,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.e.tugasprogmob.Model.Dosen;
 import com.e.tugasprogmob.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> {
 
     private ArrayList<Dosen> dataList;
-    //private Context context;
+    private Context context;
 
     public DosenAdapter(ArrayList<Dosen> dataList){
         this.dataList=dataList;
@@ -30,7 +32,7 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.card_view_dosen,parent,false);
-        //context = parent.getContext();
+        context = parent.getContext();
         return new ViewHolder(view);
     }
 
@@ -41,7 +43,13 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> 
         holder.txtGelar.setText(dataList.get(position).getGelar());
         holder.txtEmail.setText(dataList.get(position).getEmail());
         holder.txtAlamat.setText(dataList.get(position).getAlamat());
-
+        holder.img.getLayoutParams().width=200;
+        holder.img.getLayoutParams().height=200;
+        if (dataList.get(position).getFoto()!=null){
+            Picasso.with(this.context)
+                    .load("https://kpsi.fti.ukdw.ac.id/progmob/" +dataList.get(position).getFoto())
+                    .into(holder.img);
+        }
     }
 
     @Override
@@ -52,6 +60,8 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder
     implements View.OnCreateContextMenuListener{
         private TextView txtNIDN,txtNama, txtGelar, txtEmail, txtAlamat;
+        private ImageView img;
+        private CardView cd;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtNIDN = itemView.findViewById(R.id.txtNIDN);
@@ -59,6 +69,8 @@ public class DosenAdapter extends RecyclerView.Adapter<DosenAdapter.ViewHolder> 
             txtGelar = itemView.findViewById(R.id.txtGelar);
             txtEmail = itemView.findViewById(R.id.txtEmail);
             txtAlamat = itemView.findViewById(R.id.txtAlamat);
+            img = itemView.findViewById(R.id.imgFoto);
+            cd = itemView.findViewById(R.id.dsnCardView);
             itemView.setOnCreateContextMenuListener(this);
 
         }

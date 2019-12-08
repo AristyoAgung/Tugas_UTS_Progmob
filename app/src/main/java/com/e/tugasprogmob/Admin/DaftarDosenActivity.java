@@ -134,11 +134,10 @@ public class DaftarDosenActivity extends AppCompatActivity {
         }else if (item.getTitle() == "Delete") {
             DataDosenService service = RetrofitClient.getRetrofitInstance().create(DataDosenService.class);
             Call<Dosen> call = service.delDosen(
-                    "72170168",dosen.getId());// memanggil data yang sudah ada
+                    "72170168",dosen.getId());
             call.enqueue(new Callback<Dosen>() {
                 @Override
                 public void onResponse(Call<Dosen> call, Response<Dosen> response) {
-                    //Toast.makeText(DaftarDosenActivity.this, "Behasil Kehapus !!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(DaftarDosenActivity.this, DaftarDosenActivity.class);
                     startActivity(intent);
 
@@ -146,7 +145,6 @@ public class DaftarDosenActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Dosen> call, Throwable t) {
-                    //progressDialog.dismiss();
                     Toast.makeText(DaftarDosenActivity.this, "Failed...", Toast.LENGTH_LONG).show();
                 }
 

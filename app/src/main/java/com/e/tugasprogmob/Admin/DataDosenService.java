@@ -26,8 +26,29 @@ public interface DataDosenService {
                                 @Field("gelar") String gelar,
                                 @Field("foto") String foto);
     @FormUrlEncoded
+    @POST("api/progmob/dosen/createfoto")
+    Call<Dosen> postDosen_foto(
+            @Field("nim_progmob") String nimProgmob,
+            @Field("nama") String nama,
+            @Field("nidn") String nidn,
+            @Field("alamat") String alamat,
+            @Field("email") String email,
+            @Field("gelar") String gelar,
+            @Field("foto") String foto);
+    @FormUrlEncoded
     @POST("api/progmob/dosen/update")
     Call<Dosen> updateDosen(
+            @Field("nim_progmob") String nimProgmob,
+            @Field("id") int id,
+            @Field("nama") String nama,
+            @Field("nidn") String nidn,
+            @Field("alamat") String alamat,
+            @Field("email") String email,
+            @Field("gelar") String gelar,
+            @Field("foto") String foto);
+    @FormUrlEncoded
+    @POST("api/progmob/dosen/updatewithfoto")
+    Call<Dosen> updateDosen_foto(
             @Field("nim_progmob") String nimProgmob,
             @Field("id") int id,
             @Field("nama") String nama,
