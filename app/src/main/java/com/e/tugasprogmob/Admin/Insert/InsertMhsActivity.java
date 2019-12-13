@@ -156,6 +156,7 @@ public class InsertMhsActivity extends AppCompatActivity {
         edtAlamat.setText(extras.getString("alamat"));
         edtEmail.setText(extras.getString("email"));
         Image = extras.getString("foto");
+        edtFoto.setText(extras.getString("foto"));
         /*Picasso.with(InsertMhsActivity.this)
                 .load("https://kpsi.fti.ukdw.ac.id/progmob/" +extras.getString("foto"))
                 .into(part_image);
